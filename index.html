@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blox Spin Plus Free</title>
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #07100d 0%, #0c1c16 100%);
+            --card-bg: rgba(17, 34, 28, 0.85);
+            --accent-green: #00e676;
+            --accent-green-dark: #00c853;
+            --text-color: #ffffff;
+            --text-muted: #80cbc4;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 230, 118, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            width: 100%;
+            max-width: 480px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 230, 118, 0.1);
+            text-align: center;
+            position: relative;
+            margin-top: 30px;
+        }
+        /* النقطة السرية الصغيرة في أعلى الشاشة خالص */
+        .secret-dot-top {
+            position: fixed;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-green);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 8px var(--accent-green), 0 0 15px var(--accent-green);
+            transition: 0.3s;
+            z-index: 9999;
+        }
+        .secret-dot-top:hover {
+            transform: translateX(-50%) scale(1.8);
+            box-shadow: 0 0 20px var(--accent-green);
+        }
+        .header-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding-bottom: 12px;
+            margin-top: 10px;
+        }
+        .nav-btn {
+            background: rgba(0, 230, 118, 0.05);
+            border: 1px solid var(--accent-green);
+            color: var(--accent-green);
+            padding: 6px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .nav-btn:hover {
+            background: var(--accent-green);
+            color: #07100d;
+            box-shadow: 0 0 10px rgba(0, 230, 118, 0.4);
+        }
+        .server-status {
+            font-size: 13px;
+            color: var(--accent-green);
+            cursor: pointer;
+            user-select: none;
+            padding: 5px 10px;
+            background: rgba(0, 230, 118, 0.08);
+            border-radius: 8px;
+            border: 1px dashed rgba(0, 230, 118, 0.3);
+            transition: 0.2s;
+        }
+        .server-status:active {
+            background: rgba(0, 230, 118, 0.25);
+            transform: scale(0.97);
+        }
+        h1 {
+            color: var(--accent-green);
+            font-size: 26px;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 12px rgba(0, 230, 118, 0.4);
+        }
+        .sub-text {
+            color: var(--text-muted);
+            font-size: 13px;
+            margin-bottom: 25px;
+            opacity: 0.8;
+        }
+        .balance-box {
+            background: rgba(25, 56, 45, 0.6);
+            border: 1px solid rgba(0, 230, 118, 0.25);
+            padding: 18px;
+            border-radius: 12px;
+            margin: 15px 0;
+            font-size: 18px;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .btn {
+            background: linear-gradient(135deg, var(--accent-green), var(--accent-green-dark));
+            color: #07100d;
+            font-weight: bold;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            box-shadow: 0 6px 20px rgba(0, 230, 118, 0.3);
+            transition: 0.3s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 230, 118, 0.5);
+        }
+        input, select {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 14px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 230, 118, 0.3);
+            background: rgba(13, 27, 21, 0.8);
+            color: white;
+            text-align: center;
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s;
+        }
+        input:focus {
+            border-color: var(--accent-green);
+            box-shadow: 0 0 10px rgba(0, 230, 118, 0.25);
+        }
+        .hidden {
+            display: none !important;
+        }
+        .long-click-btn {
+            position: relative;
+            background: rgba(25, 56, 45, 0.5);
+            border: 2px solid var(--accent-green);
+            color: white;
+            padding: 20px;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            box-sizing: border-box;
+            margin: 20px 0;
+            overflow: hidden;
+            user-select: none;
+            transition: 0.2s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        .progress-bar-fill {
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100%;
+            background: rgba(0, 230, 118, 0.35);
+            width: 0%;
+            z-index: 1;
+            transition: width 0.1s linear;
+        }
+        .long-click-btn span {
+            position: relative;
+            z-index: 2;
+        }
+        .visa-card {
+            background: linear-gradient(135deg, #0f2e22, #05120d);
+            padding: 22px;
+            border-radius: 14px;
+            margin-top: 15px;
+            text-align: left;
+            direction: ltr;
+            border: 1px solid var(--accent-green);
+            box-shadow: inset 0 0 20px rgba(0, 230, 118, 0.15), 0 5px 15px rgba(0,0,0,0.4);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- النقطة السرية الصغيرة في أعلى الشاشة خالص -->
+    <div class="secret-dot-top" title="أدخل كود التخطي" onclick="promptForSkipCode()"></div>
+
+    <div class="container" id="mainApp">
+        <div class="header-nav">
+            <span class="server-status" id="serverStatusBtn" onclick="handleServerClick()">● متصل بالسيرفر (4)</span>
+            <button class="nav-btn" onclick="openMessages()">📩 استقبال الرسائل</button>
+        </div>
+
+        <h1>Blox Spin Plus Free</h1>
+        <p class="sub-text">منصة الاسترداد السريع والآمن</p>
+
+        <!-- الخطوة 1 -->
+        <div id="step1">
+            <label style="display: block; text-align: right; margin-bottom: 8px; font-size: 14px; color: var(--text-muted);">حدد المبلغ الذي تريده (الحد الأقصى 50$):</label>
+            <input type="number" id="desiredAmount" min="1" max="50" value="10">
+            <button class="btn" onclick="startProcess()">تأكيد وبدء الخطوات</button>
+        </div>
+
+        <!-- الخطوة 2 -->
+        <div id="step2" class="hidden">
+            <div class="balance-box">
+                الرصيد الحالي: <span id="currentBalance" style="color: var(--accent-green); font-weight: bold;">0</span>$ <br>
+                <span style="font-size: 13px; color: var(--text-muted);">الخطوة رقم: <span id="taskCount">1</span> / 500</span>
+            </div>
+            
+            <p style="font-size: 13px; margin-bottom: 10px; color: var(--text-muted);">اضغط واستمر بالضغط لتخطي مهام الـ 16 ثانية:</p>
+            
+            <div class="long-click-btn" id="longBtn" onmousedown="startPress()" onmouseup="stopPress()" ontouchstart="startPress()" ontouchend="stopPress()">
+                <div class="progress-bar-fill" id="progressBar"></div>
+                <span id="btnText">اضغط مطولاً بالبصمة (16 ثانية) 👆</span>
+            </div>
+            
+            <p id="timerDisplay" style="font-weight: bold; color: var(--accent-green); font-size: 14px; min-height: 20px;"></p>
+        </div>
+
+        <!-- الخطوة 3: العداد (6 ساعات) -->
+        <div id="step3" class="hidden">
+            <h3>⏳ جاري معالجة التحويل النهائي...</h3>
+            <p class="sub-text">يجب الانتظار لضمان استقرار السيرفر وصول المبلغ:</p>
+            <div class="balance-box" id="countdownTimer" style="font-size: 28px; font-weight: bold; color: var(--accent-green); text-shadow: 0 0 10px rgba(0,230,118,0.4);">
+                06:00:00
+            </div>
+            
+            <button class="btn hidden" id="showVisaBtn" onclick="revealVisa()" style="margin-top: 15px;">استرداد النقود الآن</button>
+        </div>
+
+        <!-- الخطوة 4 -->
+        <div id="step4" class="hidden">
+            <h3 style="color: var(--accent-green);">🎉 تم الاسترداد بنجاح!</h3>
+            <p class="sub-text">معلومات الفيزا الخاصة بك أصبحت جاهزة:</p>
+            <div class="visa-card">
+                <strong>Card Number:</strong> <span id="vNum" style="color: var(--accent-green);">4012001037141112</span><br>
+                <strong>MM-YYYY:</strong> <span id="vDate">12/2027</span><br>
+                <strong>CSC / CVV:</strong> <span id="vCvv">212</span>
+            </div>
+            <button class="btn" onclick="copyVisaData()">نسخ بيانات الفيزا بالكامل</button>
+        </div>
+
+        <!-- صندوق الرسائل -->
+        <div id="step5" class="hidden">
+            <div class="header-nav" style="border:none; margin-bottom:10px;">
+                <button class="nav-btn" onclick="backToMain()">⬅ عودة للبرنامج</button>
+            </div>
+            <h3>صندوق الوارد</h3>
+            <div class="balance-box" style="color: var(--text-muted); margin-top: 25px; padding: 30px; border-style: dashed;">
+                📭 ليس هناك أي رسائل جديدة في الوقت الحالي.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let targetAmount = 10;
+        let currentTask = 1;
+        let totalTasks = 500;
+        let runningBalance = 0;
+        let progressInterval;
+        let holdDuration = 16000; 
+        let elapsedTime = 0;
+
+        let serverClickCount = 0;
+        let serverClickTimeout;
+        let totalInitialSeconds = 6 * 3600; // 6 ساعات
+        let remainingSeconds = totalInitialSeconds; 
+        let cdInterval;
+
+        function handleServerClick() {
+            serverClickCount++;
+            clearTimeout(serverClickTimeout);
+
+            if (serverClickCount === 3) {
+                serverClickCount = 0;
+                let code = prompt("أكتب الكود الآتي لتخطي الوقت:");
+                if (code === "1") {
+                    alert("تم قبول الكود! سيتم تخطي الوقت فوراً.");
+                    document.getElementById('step3').classList.add('hidden');
+                    document.getElementById('step4').classList.remove('hidden');
+                } else if (code !== null) {
+                    alert("الكود غير صحيح!");
+                }
+            } else {
+                serverClickTimeout = setTimeout(() => {
+                    serverClickCount = 0;
+                }, 600);
+            }
+        }
+
+        // دالة التحقق من الأكواد بدقة وصارم (بدون كلمات عادية)
+        function promptForSkipCode() {
+            let code = prompt("أدخل كود التخطي أو كود الأدمن:");
+            if (code === null) return;
+            
+            code = code.trim();
+
+            // كود الأدمن الخاص بك إبراهيم (02211)
+            if (code === "02211") {
+                let adminAction = prompt("مرحباً بك يا كينج إبراهيم! اختر صلاحية:\n1- تخطي الوقت بالكامل فوراً\n2- تصفير العداد والوصول للفيزا\nاكتب رقم الأمر:");
+                if (adminAction === "1" || adminAction === "2") {
+                    remainingSeconds = 0;
+                    clearInterval(cdInterval);
+                    document.getElementById('countdownTimer').textContent = "👑 تم التفعيل بصلاحيات الأدمن!";
+                    document.getElementById('step1').classList.add('hidden');
+                    document.getElementById('step2').classList.add('hidden');
+                    document.getElementById('step3').classList.remove('hidden');
+                    document.getElementById('showVisaBtn').classList.remove('hidden');
+                    alert("🔥 تم تنفيذ أمر الأدمن بنجاح يا كينج!");
+                }
+                return;
+            }
+
+            code = code.toUpperCase();
+
+            // الأكواد المخصصة لتخطي الربع (25%) فقط
+            const quarterCodes = ["Q1", "QUARTER25", "VIP25", "REV-25", "CODE25", "FAST25"];
+            // الأكواد المخصصة لتخطي النصف (50%) فقط
+            const halfCodes = ["HALF50", "MID50", "VIP50", "REV-50", "CODE50", "SPEED50"];
+            // الأكواد المخصصة لتخطي الكل (100%) فقط
+            const fullCodes = ["ALL100", "FULLTIME", "ADMIN", "VIP-MAX", "BYPASS", "FINISH", "GODMODE", "FREEZON"];
+
+            if (quarterCodes.includes(code)) {
+                let deduct = Math.floor(totalInitialSeconds * 0.25);
+                remainingSeconds = Math.max(0, remainingSeconds - deduct);
+                alert("✨ تم قبول الكود! تم تخطي ربع (25%) من الوقت بنجاح.");
+            } else if (halfCodes.includes(code)) {
+                let deduct = Math.floor(totalInitialSeconds * 0.50);
+                remainingSeconds = Math.max(0, remainingSeconds - deduct);
+                alert("✨ تم قبول الكود! تم تخطي نصف (50%) من الوقت بنجاح.");
+            } else if (fullCodes.includes(code)) {
+                remainingSeconds = 0;
+                clearInterval(cdInterval);
+                document.getElementById('countdownTimer').textContent = "✅ تم تخطي الوقت بالكامل!";
+                document.getElementById('showVisaBtn').classList.remove('hidden');
+                alert("🚀 تم قبول الكود! تم تخطي العداد بالكامل وإتمام العملية بنجاح.");
+            } else {
+                alert("❌ الكود غير صحيح! لا يمكن التخطي إلا بالأكواد الصحيحة المعتمدة.");
+            }
+        }
+
+        function startProcess() {
+            let val = parseInt(document.getElementById('desiredAmount').value);
+            if(isNaN(val) || val <= 0 || val > 50) {
+                alert("الرجاء إدخال مبلغ صحيح بين 1 و 50 دولار");
+                return;
+            }
+            targetAmount = val;
+            document.getElementById('step1').classList.add('hidden');
+            document.getElementById('step2').classList.remove('hidden');
+            updateTaskDisplay();
+        }
+
+        function updateTaskDisplay() {
+            document.getElementById('taskCount').textContent = currentTask;
+            let increment = (targetAmount / totalTasks).toFixed(2);
+            runningBalance = Math.min(targetAmount, (currentTask * increment)).toFixed(2);
+            document.getElementById('currentBalance').textContent = runningBalance;
+        }
+
+        function startPress() {
+            let progressBar = document.getElementById('progressBar');
+            let timerDisplay = document.getElementById('timerDisplay');
+            let btnText = document.getElementById('btnText');
+            
+            elapsedTime = 0;
+            btnText.textContent = "جاري المصادقة بالبصمة...";
+            
+            progressInterval = setInterval(() => {
+                elapsedTime += 100;
+                let percent = (elapsedTime / holdDuration) * 100;
+                progressBar.style.width = percent + "%";
+                
+                let secondsLeft = Math.ceil((holdDuration - elapsedTime) / 1000);
+                timerDisplay.textContent = `متبقي للخطوة: ${secondsLeft} ثانية`;
+
+                if (elapsedTime >= holdDuration) {
+                    clearInterval(progressInterval);
+                    completeTaskStep();
+                }
+            }, 100);
+        }
+
+        function stopPress() {
+            if (elapsedTime < holdDuration) {
+                clearInterval(progressInterval);
+                document.getElementById('progressBar').style.width = "0%";
+                document.getElementById('timerDisplay').textContent = "⚠️ يجب الاستمرار بالضغط حتى تنتهي الـ 16 ثانية!";
+                document.getElementById('btnText').textContent = "اضغط مطولاً بالبصمة (16 ثانية) 👆";
+            }
+        }
+
+        function completeTaskStep() {
+            document.getElementById('progressBar').style.width = "0%";
+            document.getElementById('timerDisplay').textContent = "✅ تمت الخطوة بنجاح!";
+            document.getElementById('btnText').textContent = "اضغط للخطوة التالية 👆";
+            
+            currentTask++;
+            if (currentTask <= totalTasks) {
+                updateTaskDisplay();
+            } else {
+                document.getElementById('step2').classList.add('hidden');
+                document.getElementById('step3').classList.remove('hidden');
+                startCountdown();
+            }
+        }
+
+        function startCountdown() {
+            remainingSeconds = totalInitialSeconds; 
+            let display = document.getElementById('countdownTimer');
+            
+            cdInterval = setInterval(() => {
+                if (remainingSeconds <= 0) {
+                    clearInterval(cdInterval);
+                    display.textContent = "✅ اكتمل الوقت بنجاح!";
+                    document.getElementById('showVisaBtn').classList.remove('hidden');
+                    return;
+                }
+
+                let hours = parseInt(remainingSeconds / 3600, 10);
+                let minutes = parseInt((remainingSeconds % 3600) / 60, 10);
+                let seconds = parseInt(remainingSeconds % 60, 10);
+
+                hours = hours < 10 ? "0" + hours : hours;
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = hours + ":" + minutes + ":" + seconds;
+                remainingSeconds--;
+            }, 1000);
+        }
+
+        function revealVisa() {
+            document.getElementById('step3').classList.add('hidden');
+            document.getElementById('step4').classList.remove('hidden');
+        }
+
+        function copyVisaData() {
+            let text = "Card: 4012001037141112 | Exp: 12/2027 | CVV: 212";
+            navigator.clipboard.writeText(text).then(() => {
+                alert("تم بنجاح نسخ بيانات الفيزا!");
+            });
+        }
+
+        function openMessages() {
+            document.getElementById('step1').classList.add('hidden');
+            document.getElementById('step2').classList.add('hidden');
+            document.getElementById('step3').classList.add('hidden');
+            document.getElementById('step4').classList.add('hidden');
+            document.getElementById('step5').classList.remove('hidden');
+        }
+
+        function backToMain() {
+            document.getElementById('step5').classList.add('hidden');
+            document.getElementById('step1').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
